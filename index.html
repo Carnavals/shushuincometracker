@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salary Page Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2em;
+      background: #f0f2f5;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+    label {
+      display: block;
+      margin-top: 1em;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.6em;
+      font-size: 1em;
+      margin-top: 0.3em;
+    }
+    button {
+      margin-top: 2em;
+      padding: 0.8em 1.2em;
+      font-size: 1em;
+      background: #0070f3;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 2em;
+      white-space: pre-wrap;
+      background: #fff;
+      padding: 1em;
+      border-radius: 6px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>Salary Page Generator</h1>
+
+  <label for="balance">Current Balance (e.g., € 120,00)</label>
+  <input type="text" id="balance" value="€ 120,00">
+
+  <label for="todayAmount">Today's Salary Amount (e.g., +€ 40,00)</label>
+  <input type="text" id="todayAmount" value="+€ 40,00">
+
+  <label for="yesterdayAmount">Yesterday's Salary Amount (optional)</label>
+  <input type="text" id="yesterdayAmount" value="+€ 40,00">
+
+  <label for="payer">Payer Name</label>
+  <input type="text" id="payer" value="Shufen Lin">
+
+  <button onclick="generateHTML()">Generate HTML Page</button>
+
+  <div id="result"></div>
+
+  <script>
+    function generateHTML() {
+      const balance = document.getElementById('balance').value;
+      const todayAmount = document.getElementById('todayAmount').value;
+      const yesterdayAmount = document.getElementById('yesterdayAmount').value;
+      const payer = document.getElementById('payer').value;
+
+      const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salary Display</title>
+<style>
+  body {{ background: #000; color: white; font-family: -apple-system, BlinkMacSystemFont, sans-serif; margin: 0; padding: 20px; }}
+  .container {{ max-width: 420px; margin: auto; }}
+  .balance-icon {{ width: 70px; height: 70px; background: #00aabb; border-radius: 50%; margin: 20px auto; }}
+  .balance-amount {{ font-size: 32px; text-align: center; font-weight: bold; }}
+  .buttons {{ display: flex; justify-content: space-between; margin: 20px 0; }}
+  .btn {{ flex: 1; margin: 0 5px; padding: 10px; text-align: center; border-radius: 10px; color: white; font-weight: bold; }}
+  .pay {{ background: #a34f00; }}
+  .request {{ background: #0057b8; }}
+  .add {{ background: #6e2594; }}
+  .card {{ background: #1c1c1e; margin: 10px 0; padding: 15px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; }}
+  .source {{ font-weight: bold; }}
+  .note {{ font-size: 14px; color: #888; }}
+  .amount {{ color: #4ddf59; font-weight: bold; }}
+  h3 {{ margin-top: 30px; color: #ccc; }}
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="balance-icon"></div>
+    <div class="balance-amount">${balance}</div>
+    <div class="buttons">
+      <div class="btn pay">Pay</div>
+      <div class="btn request">Request</div>
+      <div class="btn add">Add Money</div>
+    </div>
+    <h3>Today</h3>
+    <div class="card">
+      <div>
+        <div class="source">${payer}</div>
+        <div class="note">Salary received</div>
+      </div>
+      <div class="amount">${todayAmount}</div>
+    </div>
+    ${yesterdayAmount ? `<h3>Yesterday</h3>
+    <div class="card">
+      <div>
+        <div class="source">${payer}</div>
+        <div class="note">Salary received</div>
+      </div>
+      <div class="amount">${yesterdayAmount}</div>
+    </div>` : ''}
+  </div>
+</body>
+</html>`;
+
+      const result = document.getElementById('result');
+      result.textContent = html;
+    }
+  </script>
+</body>
+</html>
